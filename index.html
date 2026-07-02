@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ritwiz Choudhary | Cloud Security &amp; DevOps Console</title>
+    <meta name="description" content="Portfolio of Ritwiz Choudhary - Cloud Security, DevOps, and Infrastructure Automation student engineer. Specializing in AWS, Docker, Kubernetes, and Terraform.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+    <!-- 1. Loading Screen -->
+    <div id="loader" role="status" aria-live="polite">
+        <div class="loader-container">
+            <div class="loader-logo">RC<span>.</span></div>
+            <div class="loader-bar">
+                <div class="loader-progress" id="loader-progress"></div>
+            </div>
+            <div class="loader-status" id="loader-status">Initializing Cloud Services...</div>
+        </div>
+    </div>
+
+    <!-- Background Canvas for Three.js particles -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Easter Egg Matrix Rain Canvas -->
+    <canvas id="matrix-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; pointer-events: none; transition: opacity 1s;"></canvas>
+
+    <!-- 2. Sticky Glassmorphic Header -->
+    <header>
+        <a href="#home" class="logo">RITWIZ<span>.</span></a>
+        <nav id="nav-menu" aria-label="Main Navigation">
+            <a href="#home" class="active">Console</a>
+            <a href="#about">About</a>
+            <a href="#metrics">Metrics</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#achievements">Achievements</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+
+            <div class="status-indicator" aria-label="System status: Secure">
+                <div class="status-dot"></div>
+                <span>SYS_ACTIVE // SECURE</span>
+            </div>
+        </nav>
+        <div class="hamburger" id="hamburger" role="button" aria-expanded="false" aria-controls="nav-menu" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Content Wrapper -->
+    <main class="content">
+
+        <!-- 3. Hero Section with Interactive Terminal -->
+        <section id="home" class="section hero">
+            <div class="hero-left">
+                <p class="hero-pretitle">SYSTEMS ARCHITECT &amp; CYBERSECURITY STUDENT</p>
+                <h1>
+                    Hi, I'm Ritwiz.<br>
+                    <span class="typewriter" id="typewriter-text" data-words='["Cloud Engineer", "DevOps Enthusiast", "InfoSec Student"]'></span>
+                </h1>
+                <p class="hero-tagline">
+                    Building secure cloud infrastructure on AWS. Specializing in automations, container orchestration,
+                    GitOps pipelines, and threat mitigation.
+                </p>
+
+                <div class="hero-keywords">
+                    <span class="keyword-badge">AWS</span>
+                    <span class="keyword-badge">Docker</span>
+                    <span class="keyword-badge">Kubernetes</span>
+                    <span class="keyword-badge">Terraform</span>
+                    <span class="keyword-badge">Linux</span>
+                    <span class="keyword-badge">CI/CD</span>
+                    <span class="keyword-badge">Security</span>
+                </div>
+
+                <div class="hero-ctas">
+                    <a href="Ritwiz Resume 2026.pdf" target="_blank" download="Ritwiz_Choudhary_Resume.pdf" class="btn btn-primary" id="cta-resume-pdf">Download Resume</a>
+                    <a href="#projects" class="btn btn-secondary">Explore Projects</a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <!-- Interactive Terminal Emulator -->
+                <div class="terminal-window" aria-label="Simulated Terminal console">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="terminal-button tb-close" title="Close"></span>
+                            <span class="terminal-button tb-minimize" title="Minimize"></span>
+                            <span class="terminal-button tb-maximize" title="Maximize"></span>
+                        </div>
+                        <div class="terminal-title">ritwiz@cloud-terminal:~</div>
+                    </div>
+                    <div class="terminal-body" id="terminal-body">
+                        <div class="terminal-line output">Welcome to Ritwiz's Interactive Command Line [v1.0.8]</div>
+                        <div class="terminal-line output">Type 'help' to view available system commands. Try 'sudo hire ritwiz'</div>
+                        <div class="terminal-line output">&nbsp;</div>
+                        <div class="terminal-line input-cmd">
+                            <span class="terminal-prompt">ritwiz@cloud-terminal:~$ </span><span id="terminal-sim-line">whoami</span>
+                        </div>
+                        <div class="terminal-line output">Ritwiz Choudhary | B.Tech CSE (Cloud Technology & InfoSec) Student.</div>
+                        <div class="terminal-line output">&nbsp;</div>
+                        <div class="terminal-input-line">
+                            <span class="terminal-prompt">ritwiz@cloud-terminal:~$ </span>
+                            <input type="text" class="terminal-input" id="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal input line" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dynamic AWS Status Banner -->
+            <div class="aws-status-banner">
+                <div class="banner-item">
+                    <span class="status-icon green-glow"></span>
+                    <span class="status-name">EC2 INSTANCES</span>
+                    <span class="status-state">RUNNING</span>
+                </div>
+                <div class="banner-item">
+                    <span class="status-icon green-glow"></span>
+                    <span class="status-name">S3 BUCKETS</span>
+                    <span class="status-state">HEALTHY</span>
+                </div>
+                <div class="banner-item">
+                    <span class="status-icon green-glow"></span>
+                    <span class="status-name">DOCKER CONTAINER</span>
+                    <span class="status-state">ACTIVE</span>
+                </div>
+                <div class="banner-item">
+                    <span class="status-icon green-glow"></span>
+                    <span class="status-name">KUBERNETES</span>
+                    <span class="status-state">HEALTHY</span>
+                </div>
+                <div class="banner-item">
+                    <span class="status-icon green-glow"></span>
+                    <span class="status-name">CI/CD PIPELINES</span>
+                    <span class="status-state">PASSING</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. About Me & Personalized Philosophy -->
+        <section id="about" class="section">
+            <h2 class="section-title">Who is Ritwiz?</h2>
+            <div class="about-grid">
+                <div class="glass-card about-text">
+                    <h3>Systems Engineering Philosophy</h3>
+                    <p>
+                        I'm Ritwiz Choudhary, a Cloud Technology and Information Security student who enjoys designing secure, scalable infrastructure. I like understanding how systems work beneath the surface—from Linux servers and networking to cloud architecture and automation. My goal is to build solutions that are reliable, efficient, and secure by design.
+                    </p>
+                    <p>
+                        Currently pursuing a <strong>B.Tech in Computer Science</strong> with a specialization in
+                        <strong>Cloud Technology and Information Security (CTIS)</strong> at Quantum University. My work
+                        focuses on replacing manual operations with robust code, mitigating configuration risks, and
+                        maintaining continuous deployment pipelines.
+                    </p>
+                    <div class="why-i-build-box">
+                        "Security is not a feature you append. It is the framework upon which your architecture stands."
+                    </div>
+                </div>
+
+                <div class="about-aside">
+                    <!-- Meaningful Statistics -->
+                    <div class="metrics-strip">
+                        <div class="metric-item">
+                            <div class="metric-num">15+</div>
+                            <div class="metric-lbl">Projects Done</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-num">20+</div>
+                            <div class="metric-lbl">Git Repos</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-num">5+</div>
+                            <div class="metric-lbl">Certificates</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-num">500+</div>
+                            <div class="metric-lbl">Hours Learning</div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card credentials-box">
+                        <h4>Core Focus Areas</h4>
+                        <ul class="credentials-list">
+                            <li>Linux Systems Administration (RHEL/Ubuntu)</li>
+                            <li>Containerization &amp; Orchestration</li>
+                            <li>Infrastructure as Code (Terraform HCL)</li>
+                            <li>Threat Assessment &amp; Cloud Security auditing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Recruiter Dashboard & Live Metrics -->
+        <section id="metrics" class="section">
+            <h2 class="section-title">What Problems I Solve</h2>
+            <div class="metrics-dashboard-grid">
+                <!-- Why Hire Me Dashboard -->
+                <div class="glass-card recruiter-dashboard">
+                    <h3>Why Hire Me?</h3>
+                    <div class="recruiter-checklist">
+                        <div class="checklist-item">
+                            <span class="check-box">&#x2713;</span>
+                            <div class="checklist-desc">
+                                <strong>Cloud Deployment Experience</strong>
+                                <p>Automated provisioning of load-balanced, highly-available clusters on AWS.</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-box">&#x2713;</span>
+                            <div class="checklist-desc">
+                                <strong>Security-First Mindset</strong>
+                                <p>Implementation of least privilege IAM roles, secure VPC configurations, and SSL/TLS setups.</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-box">&#x2713;</span>
+                            <div class="checklist-desc">
+                                <strong>CI/CD Knowledge</strong>
+                                <p>Declarative pipeline automation with GitHub Actions, webhooks, and CodeDeploy triggers.</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-box">&#x2713;</span>
+                            <div class="checklist-desc">
+                                <strong>Linux Administration</strong>
+                                <p>Proficiency in shell scripting (Bash), service daemons, and system process analysis.</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-box">&#x2713;</span>
+                            <div class="checklist-desc">
+                                <strong>Infrastructure Automation</strong>
+                                <p>Writing modular Terraform templates to prevent deployment drift across environments.</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="check-box">&#x2713;</span>
+                            <div class="checklist-desc">
+                                <strong>Quick Learner</strong>
+                                <p>Constantly picking up tools (currently deep diving Kubernetes, Ansible, and CKA preparations).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Cloud Telemetry -->
+                <div class="glass-card telemetry-console">
+                    <h3>Live Telemetry Emulator (Demo Data)</h3>
+                    <div class="telemetry-grid">
+                        <div class="telemetry-bar-card">
+                            <div class="bar-info">
+                                <span>CPU ALLOCATION</span>
+                                <span id="cpu-metric-val">12%</span>
+                            </div>
+                            <div class="metric-progress-track">
+                                <div class="metric-progress-fill cyan-glow" id="cpu-metric-fill" style="width: 12%;"></div>
+                            </div>
+                        </div>
+                        <div class="telemetry-bar-card">
+                            <div class="bar-info">
+                                <span>MEMORY CONSUMPTION</span>
+                                <span id="memory-metric-val">44%</span>
+                            </div>
+                            <div class="metric-progress-track">
+                                <div class="metric-progress-fill purple-glow" id="memory-metric-fill" style="width: 44%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="telemetry-stats">
+                        <div class="tel-stat-item">
+                            <span class="tel-label">Uptime Clock:</span>
+                            <span class="tel-value" id="uptime-val">2026d 14h 20m 34s</span>
+                        </div>
+                        <div class="tel-stat-item">
+                            <span class="tel-label">TLS Status:</span>
+                            <span class="tel-value status-active">ACTIVE / SECURE</span>
+                        </div>
+                        <div class="tel-stat-item">
+                            <span class="tel-label">Threat Level:</span>
+                            <span class="tel-value status-clear">0 WARNINGS</span>
+                        </div>
+                    </div>
+                    <!-- Live Event Logs Feed -->
+                    <div class="live-logs-feed">
+                        <div class="logs-header">Live Security logs Stream</div>
+                        <div class="logs-body" id="live-log-lines">
+                            <div class="log-line"><span class="log-time">[14:18:02]</span> <span class="log-txt">SECURE: Listening for inbound connection requests...</span></div>
+                            <div class="log-line"><span class="log-time">[14:18:15]</span> <span class="log-txt">AWS VPC: Audit of IAM policies complete. 0 alerts.</span></div>
+                            <div class="log-line"><span class="log-time">[14:18:27]</span> <span class="log-txt">DOCKER: Container cluster daemon initialized successfully.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Interactive Technical Skillset Accordion -->
+        <section id="skills" class="section">
+            <h2 class="section-title">Interactive Skills</h2>
+            <p class="section-subtitle">Click on any technological domain card below to reveal its sub-skill breakdown.</p>
+            <div class="skills-grid">
+                
+                <!-- Cloud Card -->
+                <div class="glass-card skills-card" tabindex="0">
+                    <div class="skills-card-header">
+                        <div class="skills-card-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
+                            </svg>
+                        </div>
+                        <h3>AWS &amp; Cloud Architectures</h3>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="skills-expand-area">
+                        <ul class="subskills-list">
+                            <li><strong>EC2 (Elastic Compute):</strong> Virtual server instances setup, keys, and security groups</li>
+                            <li><strong>IAM (Identity &amp; Access):</strong> Role-based access control, least privilege policy configurations</li>
+                            <li><strong>S3 (Simple Storage):</strong> Bucket configurations, assets bucket policies, encryption</li>
+                            <li><strong>VPC (Virtual Private Cloud):</strong> Subnets, routing tables, internet gateways, secure VPC layouts</li>
+                            <li><strong>Route 53:</strong> DNS configuration, routing policies, domain mapping</li>
+                            <li><strong>CloudFront:</strong> Global CDN mapping, caching configurations, HTTPS enforcement</li>
+                            <li><strong>Auto Scaling:</strong> Dynamic scaling policies, load balancing configuration</li>
+                            <li><strong>CloudFormation:</strong> Infrastructure deployment automation scripts</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Docker Card -->
+                <div class="glass-card skills-card" tabindex="0">
+                    <div class="skills-card-header">
+                        <div class="skills-card-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10S2 17.52 2 12zm10-8c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8z" />
+                            </svg>
+                        </div>
+                        <h3>Docker &amp; Containers</h3>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="skills-expand-area">
+                        <ul class="subskills-list">
+                            <li><strong>Images:</strong> Multi-stage build optimization, layer caching, Alpine base minimization</li>
+                            <li><strong>Containers:</strong> Isolated runtime constraints (memory, CPU shares), log configurations</li>
+                            <li><strong>Compose:</strong> Multi-container orchestration, services dependencies, port forwarding</li>
+                            <li><strong>Networking:</strong> Bridge networks, host routing networks, overlay container subnets</li>
+                            <li><strong>Volumes:</strong> Persistent volume bindings, named mounts, database mounts</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Kubernetes Card -->
+                <div class="glass-card skills-card" tabindex="0">
+                    <div class="skills-card-header">
+                        <div class="skills-card-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z" />
+                            </svg>
+                        </div>
+                        <h3>Kubernetes Orchestration</h3>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="skills-expand-area">
+                        <ul class="subskills-list">
+                            <li><strong>Pods &amp; Deployments:</strong> Replicated containers setups, health probes (liveness/readiness)</li>
+                            <li><strong>Services &amp; Ingress:</strong> ClusterIP routers, NodePort allocations, Ingress rules</li>
+                            <li><strong>Helm Charts:</strong> Package management configurations for templated deployments</li>
+                            <li><strong>Storage Classes:</strong> Persistent Volume Claims, dynamic provisioners</li>
+                            <li><strong>Namespaces:</strong> Logical environment isolation parameters</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Security Card -->
+                <div class="glass-card skills-card" tabindex="0">
+                    <div class="skills-card-header">
+                        <div class="skills-card-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                            </svg>
+                        </div>
+                        <h3>Security &amp; Networking</h3>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="skills-expand-area">
+                        <ul class="subskills-list">
+                            <li><strong>VPC Security:</strong> Security Group parameters, Network ACLs, Bastion Host architecture</li>
+                            <li><strong>SSL/TLS:</strong> HTTPS cert handshakes (ACM / Let's Encrypt configurations)</li>
+                            <li><strong>Least Privilege:</strong> Enforcing custom IAM policies avoiding wildcard permissions</li>
+                            <li><strong>Scanning:</strong> Network port auditing (Nmap), system vulnerability assessments</li>
+                            <li><strong>Monitoring:</strong> Event logging flows (CloudTrail, CloudWatch auditing engines)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Scripting Card -->
+                <div class="glass-card skills-card" tabindex="0">
+                    <div class="skills-card-header">
+                        <div class="skills-card-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+                            </svg>
+                        </div>
+                        <h3>Scripting &amp; Databases</h3>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="skills-expand-area">
+                        <ul class="subskills-list">
+                            <li><strong>Python:</strong> Boto3 AWS scripting libraries, automation tools writing</li>
+                            <li><strong>Linux Bash:</strong> Automated shell tasks, package management automation</li>
+                            <li><strong>SQL / MongoDB:</strong> Relational schema queries (MySQL), non-relational database configuration</li>
+                            <li><strong>YAML / JSON:</strong> Configuration syntax parser logic</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 7. Projects Showcase Section -->
+        <section id="projects" class="section">
+            <h2 class="section-title">Projects That Prove It</h2>
+            <div class="projects-grid">
+                <!-- Project 1 Card -->
+                <div class="project-card" data-project="aws-web-app" role="button" aria-label="Explore AWS Web Deployment Project details" tabindex="0">
+                    <div class="project-img-wrapper">
+                        <div class="project-img-placeholder">
+                            <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
+                            </svg>
+                            <span>AWS WEB DEPLOYMENT</span>
+                        </div>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-card-header">
+                            <h3>AWS Web Deployment</h3>
+                            <span class="project-duration">AWS Ecosystem</span>
+                        </div>
+                        <p class="project-desc">
+                            Deployed a scalable and highly-available web application using Amazon EC2 instance pools, S3 asset buckets, ALB, and automated CodeDeploy rolling pipelines.
+                        </p>
+                        <div class="project-tech-badges">
+                            <span class="project-badge">AWS EC2</span>
+                            <span class="project-badge">S3</span>
+                            <span class="project-badge">CodeDeploy</span>
+                            <span class="project-badge">ALB</span>
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        <span class="btn-card-link">Behind the Build &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 Card -->
+                <div class="project-card" data-project="multi-cloud" role="button" aria-label="Explore Multi-Cloud Architecture Project details" tabindex="0">
+                    <div class="project-img-wrapper">
+                        <div class="project-img-placeholder">
+                            <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                            </svg>
+                            <span>TERRAFORM &amp; KUBERNETES</span>
+                        </div>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-card-header">
+                            <h3>Multi-Cloud Architecture</h3>
+                            <span class="project-duration">Infrastructure as Code</span>
+                        </div>
+                        <p class="project-desc">
+                            Automated symmetrical networking and server topologies across AWS, Microsoft Azure, and GCP using modular Terraform configs with Kubernetes clusters.
+                        </p>
+                        <div class="project-tech-badges">
+                            <span class="project-badge">AWS</span>
+                            <span class="project-badge">Azure</span>
+                            <span class="project-badge">Terraform</span>
+                            <span class="project-badge">Kubernetes</span>
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        <span class="btn-card-link">Behind the Build &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 Card -->
+                <div class="project-card" data-project="monitoring" role="button" aria-label="Explore Security & Monitoring Project details" tabindex="0">
+                    <div class="project-img-wrapper">
+                        <div class="project-img-placeholder">
+                            <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                            </svg>
+                            <span>SECURITY &amp; MONITORING</span>
+                        </div>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-card-header">
+                            <h3>Cloud Security &amp; Monitoring</h3>
+                            <span class="project-duration">Compliance Auditing</span>
+                        </div>
+                        <p class="project-desc">
+                            Enforced restrictive IAM access control policies and integrated continuous health auditing via AWS CloudWatch/Azure Monitor telemetry streams.
+                        </p>
+                        <div class="project-tech-badges">
+                            <span class="project-badge">AWS IAM</span>
+                            <span class="project-badge">CloudWatch</span>
+                            <span class="project-badge">Security Audit</span>
+                            <span class="project-badge">CloudTrail</span>
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        <span class="btn-card-link">Behind the Build &rarr;</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. How I Build Them: Architecture Gallery -->
+        <section id="architecture" class="section">
+            <h2 class="section-title">Architecture Gallery</h2>
+            <p class="section-subtitle">A collection of secure infrastructure blueprints I have designed. Hover over nodes to inspect configurations.</p>
+            <div class="glass-card arch-gallery-card">
+                <div class="gallery-inner-grid">
+                    <!-- SVG Interactive Canvas Panel -->
+                    <div class="gallery-canvas-area">
+                        <svg class="interactive-gallery-svg" viewBox="0 0 600 300" aria-label="Architecture Topology Interactive Diagram">
+                            <defs>
+                                <marker id="garrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#06b6d4" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Connectors -->
+                            <path d="M 90 150 L 160 150" fill="none" stroke="var(--border-color)" stroke-width="2" marker-end="url(#garrow)"></path>
+                            <path d="M 240 150 L 310 100" fill="none" stroke="var(--border-color)" stroke-width="1.5" marker-end="url(#garrow)"></path>
+                            <path d="M 240 150 L 310 200" fill="none" stroke="var(--border-color)" stroke-width="1.5" marker-end="url(#garrow)"></path>
+                            <path d="M 390 100 L 460 150" fill="none" stroke="var(--border-color)" stroke-width="1.5" marker-end="url(#garrow)"></path>
+                            <path d="M 390 200 L 460 150" fill="none" stroke="var(--border-color)" stroke-width="1.5" marker-end="url(#garrow)"></path>
+
+                            <!-- Node 1: DNS -->
+                            <g class="gallery-node" data-title="Amazon Route 53 (DNS Resolver)" data-desc="Performs domain resolution queries, mapping friendly names like ritwiz.dev directly to AWS target endpoints.">
+                                <rect x="30" y="120" width="60" height="60" rx="6" fill="var(--bg-secondary)" stroke="var(--accent-cyan)" stroke-width="2"></rect>
+                                <text x="60" y="148" font-family="var(--font-sans)" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">Route 53</text>
+                                <text x="60" y="162" font-family="var(--font-mono)" font-size="7" fill="var(--accent-cyan)" text-anchor="middle">DNS</text>
+                            </g>
+
+                            <!-- Node 2: CDN / WAF -->
+                            <g class="gallery-node" data-title="Amazon CloudFront (CDN)" data-desc="Secures endpoints by enforcing SSL/TLS and caches static HTML/JS assets close to clients, decreasing packet latencies.">
+                                <rect x="160" y="120" width="80" height="60" rx="6" fill="var(--bg-secondary)" stroke="var(--accent-purple)" stroke-width="2"></rect>
+                                <text x="200" y="148" font-family="var(--font-sans)" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">CloudFront</text>
+                                <text x="200" y="162" font-family="var(--font-mono)" font-size="7" fill="var(--accent-purple)" text-anchor="middle">CDN/SSL</text>
+                            </g>
+
+                            <!-- Node 3: S3 Bucket -->
+                            <g class="gallery-node" data-title="AWS S3 Bucket (Private)" data-desc="Hosts build source bundles and static assets. Access is restricted using secure bucket access control policies.">
+                                <rect x="310" y="70" width="80" height="60" rx="6" fill="var(--bg-secondary)" stroke="#ff9900" stroke-width="2"></rect>
+                                <text x="350" y="98" font-family="var(--font-sans)" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">S3 Bucket</text>
+                                <text x="350" y="112" font-family="var(--font-mono)" font-size="7" fill="#ff9900" text-anchor="middle">Assets</text>
+                            </g>
+
+                            <!-- Node 4: EC2 Cluster -->
+                            <g class="gallery-node" data-title="EC2 Instance (Private Subnet)" data-desc="Virtual compute instances hosting the application execution in secure subnets, protected by restrictive security groups.">
+                                <rect x="310" y="170" width="80" height="60" rx="6" fill="var(--bg-secondary)" stroke="var(--accent-cyan)" stroke-width="2"></rect>
+                                <text x="350" y="198" font-family="var(--font-sans)" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">EC2 Nodes</text>
+                                <text x="350" y="212" font-family="var(--font-mono)" font-size="7" fill="var(--accent-cyan)" text-anchor="middle">Compute</text>
+                            </g>
+
+                            <!-- Node 5: CloudWatch -->
+                            <g class="gallery-node" data-title="AWS CloudWatch (Telemetry Logs)" data-desc="Continuously monitors memory load, CPU metrics, and tracks VPC flow logs, alerting administrators on anomalous calls.">
+                                <rect x="460" y="120" width="80" height="60" rx="6" fill="var(--bg-secondary)" stroke="var(--accent-emerald)" stroke-width="2"></rect>
+                                <text x="500" y="148" font-family="var(--font-sans)" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">CloudWatch</text>
+                                <text x="500" y="162" font-family="var(--font-mono)" font-size="7" fill="var(--accent-emerald)" text-anchor="middle">Monitor</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <!-- Tooltip status panel -->
+                    <div class="gallery-info-area">
+                        <div class="panel-header">System Blueprint logs</div>
+                        <div class="panel-body" id="gallery-tooltip-content">
+                            Hover or tap on any architecture node inside the topology map to print specifications and security parameters.
+                        </div>
+                        <div class="diagram-index-list">
+                            <h5>Designed Blueprint Index:</h5>
+                            <ul>
+                                <li>✓ Static website on S3 + CloudFront</li>
+                                <li>✓ Multi-tier AWS high-availability VPC</li>
+                                <li>✓ Docker container + Nginx deployment</li>
+                                <li>✓ GitOps automatic CI/CD deployment pipeline</li>
+                                <li>✓ Private Kubernetes cluster layout</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Experience Timeline Progression -->
+        <section id="timeline" class="section">
+            <h2 class="section-title">Professional Progression</h2>
+            <div class="timeline-scroll-path">
+                <!-- Step 1 -->
+                <div class="timeline-step">
+                    <div class="step-icon">🎓</div>
+                    <div class="step-card">
+                        <span class="step-date">August 2023</span>
+                        <h4>Started B.Tech (CTIS)</h4>
+                        <p>Began Specialization in Cloud Technology and Information Security (CTIS) at Quantum University.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="timeline-step">
+                    <div class="step-icon">🚀</div>
+                    <div class="step-card">
+                        <span class="step-date">March 2024</span>
+                        <h4>First AWS Deployment</h4>
+                        <p>Provisioned dynamic web servers, IAM credentials controls, and S3 resources on AWS.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="timeline-step">
+                    <div class="step-icon">⚓</div>
+                    <div class="step-card">
+                        <span class="step-date">June 2024</span>
+                        <h4>Cloud Computing Intern</h4>
+                        <p>Deployed serverless application components on AWS Lambda and configured CloudFront CDN paths at CODTECH IT Solutions.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="timeline-step">
+                    <div class="step-icon">🐳</div>
+                    <div class="step-card">
+                        <span class="step-date">November 2024</span>
+                        <h4>Docker Orchestration Sandbox</h4>
+                        <p>Created containerization pipelines, docker-compose environments, and persistent storage configurations.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="timeline-step">
+                    <div class="step-icon">🖥️</div>
+                    <div class="step-card">
+                        <span class="step-date">2025</span>
+                        <h4>Portfolio v2.0 Console Deployment</h4>
+                        <p>Redesigned portfolio styled as an interactive operations center to showcase telemetry datasets and DevOps proficiency.</p>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="timeline-step">
+                    <div class="step-icon">🔒</div>
+                    <div class="step-card">
+                        <span class="step-date">Present</span>
+                        <h4>AWS Solutions Architect &amp; CKA Preparations</h4>
+                        <p>Deep-diving into cluster configurations, subnetting models, security audits, and preparing certifications.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Achievements Section -->
+        <section id="achievements" class="section">
+            <h2 class="section-title">Certifications &amp; Credentials</h2>
+            <div class="achievements-dashboard-row">
+                
+                <!-- Badge Grid -->
+                <div class="badges-box-grid">
+                    <div class="badge-tile">
+                        <div class="badge-icon">
+                            <svg viewBox="0 0 100 100" width="60" height="60">
+                                <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="#080f1e" stroke="#ff9900" stroke-width="3" />
+                                <text x="50" y="55" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">AWS</text>
+                            </svg>
+                        </div>
+                        <h5>Cloud Essentials</h5>
+                        <p>AWS Academy</p>
+                    </div>
+
+                    <div class="badge-tile">
+                        <div class="badge-icon">
+                            <svg viewBox="0 0 100 100" width="60" height="60">
+                                <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="#080f1e" stroke="#8b5cf6" stroke-width="3" />
+                                <text x="50" y="55" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">DEVOPS</text>
+                            </svg>
+                        </div>
+                        <h5>DevOps Practice</h5>
+                        <p>AWS Academy</p>
+                    </div>
+
+                    <div class="badge-tile">
+                        <div class="badge-icon">
+                            <svg viewBox="0 0 100 100" width="60" height="60">
+                                <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="#080f1e" stroke="#ff9900" stroke-width="3" />
+                                <text x="50" y="55" font-family="sans-serif" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">TECH_ESS</text>
+                            </svg>
+                        </div>
+                        <h5>Technical Essentials</h5>
+                        <p>AWS Academy</p>
+                    </div>
+
+                    <div class="badge-tile">
+                        <div class="badge-icon">
+                            <svg viewBox="0 0 100 100" width="60" height="60">
+                                <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="#080f1e" stroke="#00bceb" stroke-width="3" />
+                                <text x="50" y="55" font-family="sans-serif" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">SEC</text>
+                            </svg>
+                        </div>
+                        <h5>Cyber Security</h5>
+                        <p>Deloitte</p>
+                    </div>
+                </div>
+
+                <!-- GitHub Simulated Heatmap -->
+                <div class="glass-card github-activity-card">
+                    <div class="github-title-row">
+                        <span>GIT_CONTRIBUTIONS // BRANCH: MAIN</span>
+                        <a href="https://github.com/Ritwiz18" target="_blank" class="github-link-tag">Ritwiz18 Profile &rarr;</a>
+                    </div>
+                    <div class="heatmap-scroll-container">
+                        <svg class="heatmap-svg" width="100%" height="100" viewBox="0 0 450 90">
+                            <!-- Rows: 7 weekdays, Columns: 35 weeks for spacing -->
+                            <g transform="translate(10, 10)">
+                                <!-- Custom columns loops generated -->
+                                <g transform="translate(0, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                </g>
+                                <g transform="translate(10, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#22d3ee"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                </g>
+                                <g transform="translate(20, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                </g>
+                                <g transform="translate(30, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#22d3ee"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                </g>
+                                <g transform="translate(40, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                </g>
+                                <g transform="translate(50, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#22d3ee"></rect>
+                                </g>
+                                <g transform="translate(60, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                </g>
+                                <g transform="translate(70, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                </g>
+                                <g transform="translate(80, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#22d3ee"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                </g>
+                                <g transform="translate(90, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                </g>
+                                <g transform="translate(100, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                </g>
+                                <g transform="translate(110, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#22d3ee"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                </g>
+                                <g transform="translate(120, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                </g>
+                                <g transform="translate(130, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                </g>
+                                <g transform="translate(140, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                </g>
+                                <g transform="translate(150, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                </g>
+                                <g transform="translate(160, 0)">
+                                    <rect class="heatmap-day" x="0" y="0" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="10" width="8" height="8" rx="1.5" fill="#0e7490"></rect>
+                                    <rect class="heatmap-day" x="0" y="20" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="30" width="8" height="8" rx="1.5" fill="#06b6d4"></rect>
+                                    <rect class="heatmap-day" x="0" y="40" width="8" height="8" rx="1.5" fill="#22d3ee"></rect>
+                                    <rect class="heatmap-day" x="0" y="50" width="8" height="8" rx="1.5" fill="#0891b2"></rect>
+                                    <rect class="heatmap-day" x="0" y="60" width="8" height="8" rx="1.5" fill="#1e293b"></rect>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 11. Learning Roadmap Section -->
+        <section id="roadmap" class="section">
+            <h2 class="section-title">Learning Roadmap</h2>
+            <div class="roadmap-grid">
+                
+                <!-- Completed -->
+                <div class="glass-card roadmap-card">
+                    <div class="roadmap-header completed">
+                        <span class="status-marker">&#x2714;</span>
+                        <h4>Completed Basics</h4>
+                    </div>
+                    <ul class="roadmap-list">
+                        <li>Linux Administration (Process orchestration, daemon systemd setup)</li>
+                        <li>Network protocols (TCP/IP subnet mapping, firewall routing tables)</li>
+                        <li>AWS Fundamentals (Infrastructure core, IAM policies, security gates)</li>
+                        <li>Docker containers (Volumes setups, compose orchestrations)</li>
+                    </ul>
+                </div>
+
+                <!-- Currently Learning -->
+                <div class="glass-card roadmap-card">
+                    <div class="roadmap-header learning">
+                        <span class="status-marker active-pulse"></span>
+                        <h4>Currently Learning</h4>
+                    </div>
+                    <ul class="roadmap-list">
+                        <li>Terraform IaC (Modular provisions, Remote state locking pipelines)</li>
+                        <li>Kubernetes orchestration (Ingress configurations, Pod specifications)</li>
+                        <li>Ansible engine configuration (Automation playbook tasks)</li>
+                    </ul>
+                </div>
+
+                <!-- Next Goals -->
+                <div class="glass-card roadmap-card">
+                    <div class="roadmap-header future">
+                        <span class="status-marker">&#x25CB;</span>
+                        <h4>Next Career Milestones</h4>
+                    </div>
+                    <ul class="roadmap-list">
+                        <li>AWS Solutions Architect Professional certification (SAA-C03 prep)</li>
+                        <li>Certified Kubernetes Administrator credentials (CKA prep)</li>
+                        <li>Microsoft Azure Administrator certification path</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 12. Technical Articles / Logs Section -->
+        <section id="blog" class="section">
+            <h2 class="section-title">Console logs / Technical Articles</h2>
+            <div class="blog-grid">
+                
+                <!-- Blog 1 -->
+                <div class="blog-card" data-post="docker" role="button" aria-label="Read article on Docker Isolation" tabindex="0">
+                    <span class="blog-date">June 30, 2026</span>
+                    <h3>Docker in 10 Minutes: Architecture &amp; Isolation</h3>
+                    <p>Deep dive into namespaces, cgroups, and UnionFS layers that power modern container isolation without hypervisors.</p>
+                    <span class="read-more">Load Log Contents &rarr;</span>
+                </div>
+
+                <!-- Blog 2 -->
+                <div class="blog-card" data-post="aws-iam" role="button" aria-label="Read article on AWS IAM Best Practices" tabindex="0">
+                    <span class="blog-date">May 18, 2026</span>
+                    <h3>Understanding IAM Policies: Writing Secure Configurations</h3>
+                    <p>Best practices for IAM mapping. How to enforce least-privilege parameters and avoid common wildcard security hazards.</p>
+                    <span class="read-more">Load Log Contents &rarr;</span>
+                </div>
+
+                <!-- Blog 3 -->
+                <div class="blog-card" data-post="terraform" role="button" aria-label="Read article on Terraform VPC Infrastructure" tabindex="0">
+                    <span class="blog-date">April 22, 2026</span>
+                    <h3>Building a Secure AWS VPC with Infrastructure as Code</h3>
+                    <p>Orchestrate modular network structures, isolated private zones, and NAT routes in HCL configs safely.</p>
+                    <span class="read-more">Load Log Contents &rarr;</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 13. Secure Contact Connection Section -->
+        <section id="contact" class="section contact-section-clean">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="contact-subtitle">Let's connect! Whether it's an internship, collaboration, or just a tech discussion, feel free to reach out.</p>
+
+            <div class="contact-clean-card glass-card">
+                <div class="contact-details-grid">
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon email-accent">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                            </svg>
+                        </div>
+                        <div class="contact-detail-content">
+                            <span class="detail-label">Email</span>
+                            <a href="mailto:ritwizchoudhary010@gmail.com" class="detail-value">ritwizchoudhary010@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon phone-accent">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                            </svg>
+                        </div>
+                        <div class="contact-detail-content">
+                            <span class="detail-label">Phone</span>
+                            <a href="tel:+918218578210" class="detail-value">+91 82185 78210</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <div class="contact-detail-icon location-accent">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                            </svg>
+                        </div>
+                        <div class="contact-detail-content">
+                            <span class="detail-label">Location</span>
+                            <span class="detail-value">Roorkee, Uttarakhand, India</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-separator"></div>
+
+                <div class="social-connect-container">
+                    <h3 class="social-heading">Connect With Me</h3>
+                    <div class="social-links-row">
+                        <a href="https://github.com/Ritwiz18" target="_blank" class="social-icon-link github-hover" data-tooltip="Visit GitHub" aria-label="GitHub">
+                            <div class="social-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                                </svg>
+                            </div>
+                            <span class="social-label">GitHub</span>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/ritwiz-choudhary" target="_blank" class="social-icon-link linkedin-hover" data-tooltip="Visit LinkedIn" aria-label="LinkedIn">
+                            <div class="social-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                                </svg>
+                            </div>
+                            <span class="social-label">LinkedIn</span>
+                        </a>
+
+                        <a href="https://instagram.com" target="_blank" class="social-icon-link instagram-hover" data-tooltip="Visit Instagram" aria-label="Instagram">
+                            <div class="social-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m8.4 2.25a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                                </svg>
+                            </div>
+                            <span class="social-label">Instagram</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-action-container">
+                    <a href="Ritwiz Resume 2026.pdf" target="_blank" download="Ritwiz_Choudhary_Resume.pdf" class="btn btn-primary resume-download-btn">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+                            <path d="M5.08 19h13.84v2H5.08zM12 3l7 7h-5v7h-4v-7H5z" />
+                        </svg>
+                        Download Resume
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 14. Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h2>Let's Build Something Secure<span>.</span></h2>
+                    <p>Designed and deployed by Ritwiz Choudhary. Systems active.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/ritwiz-choudhary" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/Ritwiz18" target="_blank">GitHub</a>
+                    <a href="mailto:ritwizchoudhary010@gmail.com">Email</a>
+                    <a href="Ritwiz Resume 2026.pdf" target="_blank">Resume PDF</a>
+                </div>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Ritwiz Choudhary. All rights reserved. Secure HTTPS connections enforced.
+            </div>
+        </footer>
+
+    </main> <!-- End Content -->
+
+    <!-- Modals Overlay Structure -->
+    <div class="modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close-btn" role="button" aria-label="Close dialog" tabindex="0">&times;</span>
+            <div class="modal-body" id="modal-body-content">
+                <!-- Dynamically populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip Overlay -->
+    <div class="tooltip" id="svg-tooltip">Node Info</div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>
