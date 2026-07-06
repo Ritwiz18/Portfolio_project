@@ -1,7 +1,6 @@
 .git
 .gitignore
 backup_v1
-*.pdf
 *.jpg
 Dockerfile
 docker file

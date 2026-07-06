@@ -5,8 +5,7 @@ FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
 COPY style.css /usr/share/nginx/html/
 COPY script.js /usr/share/nginx/html/
-COPY "Ritwiz Resume 2026.pdf" "/usr/share/nginx/html/Ritwiz Resume 2026.pdf"
-
+COPY ["Ritwiz Resume 2026.pdf", "/usr/share/nginx/html/"]
 # Expose port 80 to the outside world
 EXPOSE 80
 

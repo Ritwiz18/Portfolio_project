@@ -353,24 +353,24 @@ window.addEventListener('DOMContentLoaded', () => {
     const progress = document.getElementById('loader-progress');
     const statusText = document.getElementById('loader-status');
     const loader = document.getElementById('loader');
-    
+
     let currentPct = 0;
     let logIndex = 0;
-    
+
     const interval = setInterval(() => {
         currentPct += Math.floor(Math.random() * 8) + 4;
         if (currentPct > 100) currentPct = 100;
-        
+
         if (progress) progress.style.width = currentPct + '%';
-        
+
         const threshold = 100 / loaderLogs.length;
         const targetIndex = Math.floor(currentPct / threshold);
-        
+
         if (targetIndex > logIndex && logIndex < loaderLogs.length - 1) {
             logIndex = targetIndex;
             if (statusText) statusText.innerText = loaderLogs[logIndex];
         }
-        
+
         if (currentPct === 100) {
             clearInterval(interval);
             setTimeout(() => {
@@ -390,16 +390,16 @@ window.addEventListener('DOMContentLoaded', () => {
 function initTypewriter() {
     const textSpan = document.getElementById('typewriter-text');
     if (!textSpan) return;
-    
+
     const words = JSON.parse(textSpan.getAttribute('data-words'));
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
     let delay = 150;
-    
+
     function type() {
         const currentWord = words[wordIndex];
-        
+
         if (isDeleting) {
             charIndex--;
             delay = 60;
@@ -407,9 +407,9 @@ function initTypewriter() {
             charIndex++;
             delay = 120;
         }
-        
+
         textSpan.textContent = currentWord.substring(0, charIndex);
-        
+
         if (!isDeleting && charIndex === currentWord.length) {
             isDeleting = true;
             delay = 1800;
@@ -418,10 +418,10 @@ function initTypewriter() {
             wordIndex = (wordIndex + 1) % words.length;
             delay = 400;
         }
-        
+
         setTimeout(type, delay);
     }
-    
+
     setTimeout(type, 500);
 }
 
@@ -500,15 +500,15 @@ if (terminalInput) {
         if (e.key === 'Enter') {
             const rawCmd = terminalInput.value;
             const cmd = rawCmd.trim().toLowerCase();
-            
+
             const inputLine = document.createElement('div');
             inputLine.className = 'terminal-line input-cmd';
             inputLine.innerHTML = `<span class="terminal-prompt">ritwiz@cloud-terminal:~$ </span>${escapeHTML(rawCmd)}`;
-            
+
             terminalBody.insertBefore(inputLine, terminalInput.parentElement);
-            
+
             let output = '';
-            
+
             if (cmd === '') {
                 output = '';
             } else if (cmd === 'clear') {
@@ -523,13 +523,13 @@ if (terminalInput) {
                 output = "Matrix mode authorized. Executing overlay grid...";
             } else if (cmd === 'sudo hire ritwiz') {
                 output = `<span style="color:var(--accent-emerald)">[SECURE CONNECTION AUTHORIZED]</span><br>` +
-                         `> Validating credentials for root privilege execution... SUCCESS.<br>` +
-                         `> Scaling developer resource: Ritwiz Choudhary ➔ Active Hired State.<br>` +
-                         `> [CHECK] Cloud deployment: PASS (AWS, Azure, GCP)<br>` +
-                         `> [CHECK] Security check: PASS (VPC, IAM configuration, Least Privilege)<br>` +
-                         `> [CHECK] Automation tests: PASS (Terraform, Docker Compose, CI/CD)<br>` +
-                         `> STATUS: 100% ready for interview deployment.<br>` +
-                         `> Command: Type 'contact' to schedule connection parameters.`;
+                    `> Validating credentials for root privilege execution... SUCCESS.<br>` +
+                    `> Scaling developer resource: Ritwiz Choudhary ➔ Active Hired State.<br>` +
+                    `> [CHECK] Cloud deployment: PASS (AWS, Azure, GCP)<br>` +
+                    `> [CHECK] Security check: PASS (VPC, IAM configuration, Least Privilege)<br>` +
+                    `> [CHECK] Automation tests: PASS (Terraform, Docker Compose, CI/CD)<br>` +
+                    `> STATUS: 100% ready for interview deployment.<br>` +
+                    `> Command: Type 'contact' to schedule connection parameters.`;
             } else if (cmd.startsWith('cat project ')) {
                 const index = cmd.replace('cat project ', '').trim();
                 if (index === '1') {
@@ -558,14 +558,14 @@ Result: Security configurations scanned and logged.`;
             } else {
                 output = `bash: command not found: ${escapeHTML(cmd)}. Type 'help' to inspect operations.`;
             }
-            
+
             if (output !== '') {
                 const outputLine = document.createElement('div');
                 outputLine.className = 'terminal-line output';
                 outputLine.innerHTML = output.replace(/\n/g, '<br>');
                 terminalBody.insertBefore(outputLine, terminalInput.parentElement);
             }
-            
+
             terminalBody.scrollTop = terminalBody.scrollHeight;
             terminalInput.value = '';
         }
@@ -582,28 +582,99 @@ Result: Security configurations scanned and logged.`;
 }
 
 function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
+    return str.replace(/[&<>'"]/g,
         tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
     );
 }
 
 // ==========================================
 // 5. INTERACTIVE SKILLS (EXPANDABLE)
-// ==========================================
+// ====================do======================
 
 const skillCards = document.querySelectorAll('.skills-card');
+const skillHeaders = document.querySelectorAll('.skills-card-header');
 
-skillCards.forEach(card => {
+function toggleCard(card) {
+    const isExpanded = card.classList.contains('expanded');
     const header = card.querySelector('.skills-card-header');
-    if (header) {
-        header.style.cursor = 'pointer';
-        header.addEventListener('click', () => {
-            // Close other cards first for clean UI
-            skillCards.forEach(c => {
-                if (c !== card) c.classList.remove('expanded');
-            });
-            // Toggle active card
-            card.classList.toggle('expanded');
+
+    // Close other cards first for clean UI
+    skillCards.forEach(c => {
+        if (c !== card) {
+            c.classList.remove('expanded');
+            const h = c.querySelector('.skills-card-header');
+            if (h) {
+                h.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
+
+    // Toggle active card
+    if (isExpanded) {
+        card.classList.remove('expanded');
+        if (header) {
+            header.setAttribute('aria-expanded', 'false');
+        }
+    } else {
+        card.classList.add('expanded');
+        if (header) {
+            header.setAttribute('aria-expanded', 'true');
+        }
+    }
+}
+
+skillHeaders.forEach((header, index) => {
+    header.addEventListener('click', (e) => {
+        const card = header.closest('.skills-card');
+        toggleCard(card);
+    });
+
+    // Keyboard navigation
+    header.addEventListener('keydown', (e) => {
+        const card = header.closest('.skills-card');
+
+        switch (e.key) {
+            case ' ':
+            case 'Enter':
+                e.preventDefault(); // Prevent page scroll
+                toggleCard(card);
+                break;
+            case 'Escape':
+                if (card.classList.contains('expanded')) {
+                    toggleCard(card);
+                }
+                break;
+            case 'ArrowDown':
+            case 'ArrowRight':
+                e.preventDefault();
+                const nextIndex = (index + 1) % skillHeaders.length;
+                skillHeaders[nextIndex].focus();
+                break;
+            case 'ArrowUp':
+            case 'ArrowLeft':
+                e.preventDefault();
+                const prevIndex = (index - 1 + skillHeaders.length) % skillHeaders.length;
+                skillHeaders[prevIndex].focus();
+                break;
+            case 'Home':
+                e.preventDefault();
+                skillHeaders[0].focus();
+                break;
+            case 'End':
+                e.preventDefault();
+                skillHeaders[skillHeaders.length - 1].focus();
+                break;
+        }
+    });
+});
+
+// Global Escape listener for Skills section collapse
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        skillCards.forEach(card => {
+            if (card.classList.contains('expanded')) {
+                toggleCard(card);
+            }
         });
     }
 });
@@ -622,7 +693,7 @@ function initLiveMetrics() {
         const hrs = Math.floor((uptimeSecs % 86400) / 3600);
         const mins = Math.floor((uptimeSecs % 3600) / 60);
         const secs = uptimeSecs % 60;
-        
+
         if (uptimeVal) {
             uptimeVal.innerText = `${days}d ${hrs}h ${mins}m ${secs}s`;
         }
@@ -664,10 +735,10 @@ function initLiveMetrics() {
             const line = document.createElement('div');
             line.className = 'log-line';
             line.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-txt">${logText}</span>`;
-            
+
             logsContainer.appendChild(line);
             logsContainer.scrollTop = logsContainer.scrollHeight;
-            
+
             // Limit log lines to 15 lines to avoid memory leak
             if (logsContainer.children.length > 15) {
                 logsContainer.children[0].remove();
@@ -716,9 +787,9 @@ projectCards.forEach(card => {
         const projectKey = card.getAttribute('data-project');
         const data = PROJECTS_DB[projectKey];
         if (!data) return;
-        
+
         let techBadges = data.tech.map(t => `<span class="project-badge">${t}</span>`).join(' ');
-        
+
         let contentHTML = `
             <div class="modal-header-info">
                 <h2>${data.title}</h2>
@@ -786,15 +857,15 @@ projectCards.forEach(card => {
                 </div>
             </div>
         `;
-        
+
         if (data.diagram) {
             contentHTML += data.diagram;
         }
-        
+
         if (modalBody) modalBody.innerHTML = contentHTML;
         if (modal) modal.classList.add('active');
         bodyTag.classList.add('modal-open');
-        
+
         if (data.diagram) {
             initInteractiveDiagram();
         }
@@ -807,7 +878,7 @@ blogCards.forEach(card => {
         const postKey = card.getAttribute('data-post');
         const data = BLOG_DB[postKey];
         if (!data) return;
-        
+
         let contentHTML = `
             <div class="modal-header-info">
                 <h2>${data.title}</h2>
@@ -821,7 +892,7 @@ blogCards.forEach(card => {
                 ${data.content}
             </div>
         `;
-        
+
         if (modalBody) modalBody.innerHTML = contentHTML;
         if (modal) modal.classList.add('active');
         bodyTag.classList.add('modal-open');
@@ -857,7 +928,7 @@ window.addEventListener('keydown', (e) => {
 function initInteractiveDiagram() {
     const nodes = document.querySelectorAll('.svg-node');
     const tooltipBox = document.getElementById('diagram-tooltip-content');
-    
+
     nodes.forEach(node => {
         const updateTooltip = () => {
             const title = node.getAttribute('data-title');
@@ -893,7 +964,7 @@ if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
-        
+
         const lines = hamburger.querySelectorAll('span');
         if (hamburger.classList.contains('active')) {
             lines[0].style.transform = 'translateY(8px) rotate(45deg)';
@@ -910,7 +981,7 @@ if (hamburger && navMenu) {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
-            
+
             const lines = hamburger.querySelectorAll('span');
             lines[0].style.transform = 'none';
             lines[1].style.opacity = '1';
@@ -921,12 +992,12 @@ if (hamburger && navMenu) {
 
 window.addEventListener('scroll', () => {
     const scrollPos = window.scrollY + 150;
-    
+
     document.querySelectorAll('.section').forEach(section => {
         const id = section.getAttribute('id');
         const offset = section.offsetTop;
         const height = section.offsetHeight;
-        
+
         if (scrollPos >= offset && scrollPos < offset + height) {
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -963,9 +1034,9 @@ for (let i = 0; i < particleCount; i++) {
     const x = THREE.MathUtils.randFloatSpread(120);
     const y = THREE.MathUtils.randFloatSpread(100);
     const z = THREE.MathUtils.randFloatSpread(100);
-    
+
     coordinates.push({ x, y, z, vx: THREE.MathUtils.randFloatSpread(0.12), vy: THREE.MathUtils.randFloatSpread(0.12), vz: THREE.MathUtils.randFloatSpread(0.1) });
-    
+
     particlePositions[i * 3] = x;
     particlePositions[i * 3 + 1] = y;
     particlePositions[i * 3 + 2] = z;
@@ -1005,62 +1076,62 @@ document.addEventListener('mousemove', (e) => {
 
 function animate() {
     requestAnimationFrame(animate);
-    
+
     const positions = particleSystem.geometry.attributes.position.array;
     const lineCoords = [];
-    
+
     for (let i = 0; i < particleCount; i++) {
         const pt = coordinates[i];
-        
+
         pt.x += pt.vx;
         pt.y += pt.vy;
         pt.z += pt.vz;
-        
+
         if (Math.abs(pt.x) > 75) pt.vx *= -1;
         if (Math.abs(pt.y) > 65) pt.vy *= -1;
         if (Math.abs(pt.z) > 65) pt.vz *= -1;
-        
+
         positions[i * 3] = pt.x;
         positions[i * 3 + 1] = pt.y;
         positions[i * 3 + 2] = pt.z;
     }
-    
+
     particleSystem.geometry.attributes.position.needsUpdate = true;
-    
+
     for (let i = 0; i < particleCount; i++) {
         const nodeA = coordinates[i];
         for (let j = i + 1; j < particleCount; j++) {
             const nodeB = coordinates[j];
-            
+
             const dx = nodeA.x - nodeB.x;
             const dy = nodeA.y - nodeB.y;
             const dz = nodeA.z - nodeB.z;
-            const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-            
+            const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
             if (dist < 20) {
                 lineCoords.push(nodeA.x, nodeA.y, nodeA.z);
                 lineCoords.push(nodeB.x, nodeB.y, nodeB.z);
             }
         }
     }
-    
+
     if (lineSegments) scene.remove(lineSegments);
-    
+
     const linesGeom = new THREE.BufferGeometry();
     linesGeom.setAttribute('position', new THREE.Float32BufferAttribute(lineCoords, 3));
     lineSegments = new THREE.LineSegments(linesGeom, lineMaterial);
     scene.add(lineSegments);
-    
+
     currentMouseX += (targetMouseX - currentMouseX) * 0.05;
     currentMouseY += (targetMouseY - currentMouseY) * 0.05;
-    
+
     camera.position.x = currentMouseX;
     camera.position.y = -currentMouseY;
     camera.lookAt(scene.position);
-    
+
     particleSystem.rotation.y += 0.0006;
     if (lineSegments) lineSegments.rotation.y += 0.0006;
-    
+
     renderer.render(scene, camera);
 }
 
@@ -1107,7 +1178,7 @@ function toggleMatrixRain() {
 
     canvas.style.opacity = '1';
     const ctx = canvas.getContext('2d');
-    
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -1120,15 +1191,15 @@ function toggleMatrixRain() {
     function step() {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
+
         ctx.fillStyle = '#0f0';
         ctx.font = '15pt monospace';
-        
+
         ypos.forEach((y, ind) => {
             const text = String.fromCharCode(Math.random() * 128);
             const x = ind * 20;
             ctx.fillText(text, x, y);
-            
+
             if (y > 100 + Math.random() * 10000) {
                 ypos[ind] = 0;
             } else {

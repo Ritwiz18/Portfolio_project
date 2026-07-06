@@ -799,13 +799,32 @@ nav a.active::after {
 /* Interactive Accordion Skills Grid */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
     gap: 1.5rem;
 }
 
 .skills-card {
     padding: 0;
     overflow: hidden;
+    transition: background-color 350ms ease-in-out, border-color 350ms ease-in-out, box-shadow 350ms ease-in-out, transform 350ms ease-in-out;
+    position: relative;
+}
+
+/* Active card styling */
+.skills-card.expanded {
+    background: rgba(10, 25, 48, 0.75) !important;
+    border-color: var(--accent-cyan);
+    box-shadow: var(--glow-cyan), 0 12px 40px rgba(6, 182, 212, 0.25);
+    transform: scale(1.02);
+    z-index: 2;
+}
+
+/* Accessibility Focus Ring border glow */
+.skills-card:focus-within {
+    border-color: var(--accent-cyan);
+    box-shadow: var(--glow-cyan);
+    background: rgba(10, 20, 38, 0.65);
 }
 
 .skills-card-header {
@@ -817,10 +836,19 @@ nav a.active::after {
     position: relative;
 }
 
+.skills-card-header:focus-visible {
+    outline: none;
+}
+
 .skills-card-icon {
     color: var(--accent-cyan);
     display: flex;
     align-items: center;
+    transition: transform 350ms ease-in-out;
+}
+
+.skills-card.expanded .skills-card-icon {
+    transform: scale(1.1);
 }
 
 .skills-card-header h3 {
@@ -833,19 +861,31 @@ nav a.active::after {
     font-family: var(--font-mono);
     font-weight: bold;
     font-size: 1.2rem;
-    transition: transform 0.3s;
+    display: inline-block;
+    transition: transform 350ms ease-in-out, color 350ms ease-in-out;
 }
 
-/* Accordion expand physics */
+/* Accordion expand physics using native grid-row transition */
 .skills-expand-area {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 350ms cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(5, 8, 16, 0.25);
 }
 
 .skills-card.expanded .skills-expand-area {
-    max-height: 450px;
+    grid-template-rows: 1fr;
+}
+
+.skills-expand-content {
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
+
+.skills-card.expanded .skills-expand-content {
+    opacity: 1;
 }
 
 .skills-card.expanded .expand-indicator {
@@ -877,6 +917,19 @@ nav a.active::after {
     color: var(--accent-cyan);
     font-size: 0.6rem;
     top: 2px;
+}
+
+/* Skills grid responsive breakpoints */
+@media (max-width: 1024px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Projects Showcase Grid */
