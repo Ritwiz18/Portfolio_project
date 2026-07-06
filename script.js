@@ -1007,6 +1007,16 @@ window.addEventListener('scroll', () => {
             });
         }
     });
+
+    // Back to top button visibility
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        if (window.scrollY > 400) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    }
 });
 
 // ==========================================
@@ -1025,7 +1035,9 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.z = 80;
 
-const particleCount = 70;
+// Reduce particle count on mobile for performance
+const isMobile = window.innerWidth <= 768;
+const particleCount = isMobile ? 30 : 70;
 const particlesGeom = new THREE.BufferGeometry();
 const particlePositions = new Float32Array(particleCount * 3);
 
