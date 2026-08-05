@@ -30,14 +30,12 @@
 }
 
 html {
-    overflow-x: hidden;
 }
 
 body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     font-family: var(--font-sans);
-    overflow-x: hidden;
     line-height: 1.6;
     width: 100%;
     position: relative;
@@ -303,6 +301,7 @@ nav a.active::after {
     padding: 2.5rem;
     transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    min-width: 0;
 }
 
 .glass-card:hover {
@@ -324,6 +323,11 @@ nav a.active::after {
     padding-bottom: 2rem;
     padding-left: max(4rem, env(safe-area-inset-left));
     padding-right: max(4rem, env(safe-area-inset-right));
+}
+
+.hero-left,
+.hero-right {
+    min-width: 0;
 }
 
 @media (max-width: 1024px) {
@@ -990,7 +994,7 @@ nav a.active::after {
 /* Skills grid responsive breakpoints */
 @media (max-width: 1024px) {
     .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -1396,6 +1400,9 @@ nav a.active::after {
     padding: 1.5rem;
     text-align: center;
     transition: all 0.3s;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .badge-tile:hover {
@@ -2200,7 +2207,7 @@ footer {
     }
 
     .badges-box-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     /* Architecture gallery */
@@ -2312,7 +2319,7 @@ footer {
     }
 
     .badges-box-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -2346,7 +2353,7 @@ footer {
     }
 
     .badges-box-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
