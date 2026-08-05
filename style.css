@@ -320,6 +320,26 @@ nav a.active::after {
     padding-top: 8rem;
     width: 100%;
     box-sizing: border-box;
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+        padding-top: 6rem;
+        min-height: unset;
+        padding-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        gap: 1.5rem;
+        padding-top: 5.5rem;
+    }
 }
 
 .hero-pretitle {
